@@ -1,20 +1,34 @@
-// npm - global command, comes with node
-// npm --version to check version
+const {readFile, writeFile} = require('fs').promises
+// const util = require('util')
+// const readFilePromise = util.promisify(readFile)
+// const writeFilePromise = util.promisify(writeFile)
 
-// local dependecy - use it only in this particular project
-// npm i <package>
+const start = async()=>{
+    try{
+        const first = await readFile('./content/first.txt', 'utf-8')
+        const second = await readFile('./content/second.txt', 'utf-8')
+        await writeFile('./content/result-mind-grnade.txt', `THIS IS AWESOME : ${first}, ${second}`)
+        console.log(first, second)
+    }catch(error){
+        console.log(error)
+    }
+}
 
-// global dependecy - use it in any project
-// npm install -g <packageName>
-// sudo npm install -g <packageName> (mac)
+start()
+// const getText = (path)=>{
+//     return new Promise((resolve, reject)=>{
+//         readFile(path, 'utf-8', (err,data)=>{
+//             if(err){
+//                 reject(err)
+//                 return
+//             }else{
+//                 resolve(data)
+//             }
+//         })
+//     })
+// }
 
-// package.json - manifest file (stores important information about project/package)
-// manual appraoch (create package.json in the root, create properties etc)
-// npm init (step by step, press enter to skip)
-//npm init -y (everything default)
 
-const _ = require('lodash')
-
-const items = [1, [2, [3,[4]]]]
-const newItems = _.flattenDeep(items)
-console.log(newItems)
+// getText('./content/first.txt')
+// .then((result)=> console.log(result))
+// .catch((err)=>console.log(err))
